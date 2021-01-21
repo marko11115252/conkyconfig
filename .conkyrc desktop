@@ -1,0 +1,158 @@
+-- vim: ts=4 sw=4 noet ai cindent syntax=lua
+--[[
+Conky, a system monitor, based on torsmo
+
+Any original torsmo code is licensed under the BSD license
+
+All code written since the fork of torsmo is licensed under the GPL
+
+Please see COPYING for details
+
+Copyright (c) 2004, Hannu Saransaari and Lauri Hakkarainen
+Copyright (c) 2005-2012 Brenden Matthews, Philip Kovacs, et. al. (see AUTHORS)
+All rights reserved.
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+]]
+
+conky.config = {
+    alignment = 'top_right',
+    background = false,
+    border_width = 1,
+    cpu_avg_samples = 2,
+	default_color = 'white',
+    default_outline_color = 'white',
+    default_shade_color = 'white',
+	double_buffer = true,
+    draw_borders = false,
+    draw_graph_borders = true,
+    draw_outline = false,
+    draw_shades = false,
+    use_xft = true,
+    font = 'DejaVu Sans Mono:size=12',
+    gap_x = 15,
+    gap_y = 60,
+    minimum_height = 5,
+	minimum_width = 5,
+    net_avg_samples = 2,
+    no_buffers = true,
+    out_to_console = false,
+    out_to_stderr = false,
+    extra_newline = false,
+    own_window = true,
+    own_window_class = 'Conky',
+    own_window_type = 'desktop',
+	own_window_argb_visual = true,
+	own_window_argb_value = 0,
+    stippled_borders = 0,
+    update_interval = 0.1,
+    uppercase = false,
+    use_spacer = 'none',
+    show_graph_scale = false,
+    show_graph_range = false,
+	xinerama_head = 2
+}
+
+conky.text = [[
+${color grey}$nodename $color $alignr $sysname $kernel
+${color grey}Date $color $alignr${time %A, %B %e}
+${color grey}Time $color $alignr${time %H:%M:%S}
+${color grey}Uptime:$color $alignr $uptime
+${color grey}File System $color $alignr${fs_type}
+
+${color #FFFFFF}Network ${color #FFFFFF}${hr 2}
+
+#$font${color White}IP on enp5s0 $alignr ${addr enp5s0}
+$font${color White}Up $alignr ${upspeed enp5s0}
+${color White}${upspeedgraph enp5s0 20,250 White White}
+${color White}Down $alignr ${downspeed enp5s0}
+${color White}${downspeedgraph enp5s0 20,250 White White}  
+${color White}Uploaded: ${totalup enp5s0} $alignr Downloaded: ${totaldown enp5s0}
+
+${color #FFFFFF}Processors ${color #FFFFFF}${hr 2}
+
+$font${color White}Core1 ${cpu cpu1}% ${cpubar cpu1}
+Freq: ${freq 1}MHz
+Core2 ${cpu cpu2}% ${cpubar cpu2}
+Freq: ${freq 2}MHz
+Core3 ${cpu cpu3}% ${cpubar cpu3}
+Freq: ${freq 3}MHz
+Core4 ${cpu cpu4}% ${cpubar cpu4}
+Freq: ${freq 4}MHz
+Core5 ${cpu cpu5}% ${cpubar cpu5}
+Freq: ${freq 5}MHz
+Core6 ${cpu cpu6}% ${cpubar cpu6}
+Freq: ${freq 6}MHz
+Core7 ${cpu cpu7}% ${cpubar cpu7}
+Freq: ${freq 7}MHz
+Core8 ${cpu cpu8}% ${cpubar cpu8}
+Freq: ${freq 8}MHz
+Core9 ${cpu cpu9}% ${cpubar cpu9}
+Freq: ${freq 9}MHz
+Core10 ${cpu cpu10}% ${cpubar cpu10}
+Freq: ${freq 10}MHz
+Core11 ${cpu cpu11}% ${cpubar cpu11}
+Freq: ${freq 11}MHz
+Core12 ${cpu cpu12}% ${cpubar cpu12}
+Freq: ${freq 12}MHz
+Core13 ${cpu cpu13}% ${cpubar cpu13}
+Freq: ${freq 13}MHz
+Core14 ${cpu cpu14}% ${cpubar cpu14}
+Freq: ${freq 14}MHz
+Core15 ${cpu cpu15}% ${cpubar cpu15}
+Freq: ${freq 15}MHz
+Core16 ${cpu cpu16}% ${cpubar cpu16}
+Freq: ${freq 16}MHz
+
+${color grey}CPU Usage:$color $cpu% ${cpubar 4}
+${color grey}Processes:$color $processes  ${color grey}Running:$color $running_processes
+
+${color grey}Frequency (in MHz):$color $freq
+${color grey}Frequency (in GHz):$color $freq_g
+$hr
+
+${color grey}RAM Usage:$color $mem/$memmax - $memperc% ${membar 20,250}
+${color grey}Swap Usage:$color $swap/$swapmax - $swapperc% ${swapbar 4}
+
+$hr
+${color white}GPU:
+${execi 10 nvidia-smi pmon -c 1}
+$hr
+
+${color grey}File systems:
+$color${fs_used /}/${fs_size xinerama_head = 2,/} ${fs_bar 20,250 /}
+$hr
+${color #FFFFFF}Disk I/O: $color${diskio}
+${color DimGray}Read:
+${color White}${diskiograph_read 20,250 White White 750}
+${color DimGray}Write:
+${color White}${diskiograph_write 20,250 White White 750}
+$hr
+
+${color #FFFFFF}Temperatures ${color #FFFFFF}${hr 2}
+
+$font${color DimGray}${color White}Temp 1$alignr${hwmon 0 temp 1}°C
+${color White}Temp 2$alignr${hwmon 1 temp 1}°C
+${color}GPU Temp: $alignr${execi 60 nvidia-settings -query [gpu:0]/GPUCoreTemp -t}°C
+$hr
+
+${color #FFFFFF}Entropy: ${color}${entropy_avail}${color DimGray}/${color}${entropy_poolsize} ${color White}${entropy_bar}
+$hr
+
+${color white} Name                PID   CPU%   MEM%
+${color lightgrey} ${top name 1} ${top pid 1} ${top cpu 1} ${top mem 1}
+${color lightgrey} ${top name 2} ${top pid 2} ${top cpu 2} ${top mem 2}
+${color lightgrey} ${top name 3} ${top pid 3} ${top cpu 3} ${top mem 3}
+${color lightgrey} ${top name 4} ${top pid 4} ${top cpu 4} ${top mem 4}
+${color lightgrey} ${top name 5} ${top pid 5} ${top cpu 5} ${top mem 5}
+]]
