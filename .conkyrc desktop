@@ -65,8 +65,10 @@ conky.config = {
 
 conky.text = [[
 ${color grey}$nodename $color $alignr $sysname $kernel
-${color grey}Date $color $alignr${time %A, %B %e}
-${color grey}Time $color $alignr${time %H:%M:%S}
+${color grey}OS: $color $alignr ${execi 999999 lsb_release -ds}
+${color grey}Codename: $color $alignr ${execi 999999 lsb_release -cs}
+${color grey}Date: $color $alignr${time %A, %B %e}
+${color grey}Time: $color $alignr${time %H:%M:%S}
 ${color grey}Uptime:$color $alignr $uptime
 ${color grey}File System $color $alignr${fs_type}
 
