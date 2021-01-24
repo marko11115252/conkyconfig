@@ -127,8 +127,9 @@ ${color grey}RAM Usage:$color $mem/$memmax - $memperc% ${membar 20,250}
 ${color grey}Swap Usage:$color $swap/$swapmax - $swapperc% ${swapbar 4}
 
 $hr
-${color white}GPU:
-${execi 10 nvidia-smi pmon -c 1}
+GPU Frequency $alignr ${nvidia gpufreq} Mhz
+Memory Frequency $alignr ${nvidia memfreq} Mhz
+GPU utilisation: $alignr ${exec nvidia-settings -tq GPUUtilization | awk -F '[,= ]' '{ print $2 }'}%
 $hr
 
 ${color grey}File systems:
