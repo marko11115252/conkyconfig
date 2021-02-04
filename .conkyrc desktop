@@ -74,12 +74,12 @@ ${color grey}File System $color $alignr${fs_type}
 
 ${color #FFFFFF}Network ${color #FFFFFF}${hr 2}
 
-#$font${color White}IP on enp5s0 $alignr ${addr enp5s0}
 $font${color White}Up $alignr ${upspeed enp5s0}
 ${color White}${upspeedgraph enp5s0 20,250 White White}
 ${color White}Down $alignr ${downspeed enp5s0}
 ${color White}${downspeedgraph enp5s0 20,250 White White}  
 ${color White}Uploaded: ${totalup enp5s0} $alignr Downloaded: ${totaldown enp5s0}
+$font${color White}IP on enp5s0 $alignr ${addr enp5s0}
 
 ${color #FFFFFF}Processors ${color #FFFFFF}${hr 2}
 
